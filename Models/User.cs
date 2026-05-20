@@ -18,5 +18,10 @@ namespace TravelPlannerMVC.Models
 
         [Required]
         public string Role { get; set; } = "User";
+
+        public List<Booking> Bookings { get; set; } = new List<Booking>();
+
+        public List<TravelRequest> TravelRequests { get; set; } = new List<TravelRequest>();
+
     }
 }

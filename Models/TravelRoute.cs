@@ -2,7 +2,7 @@
 
 namespace TravelPlannerMVC.Models
 {
-    public class Route
+    public class TravelRoute
     {
         public int Id { get; set; }
 
@@ -22,5 +22,8 @@ namespace TravelPlannerMVC.Models
         [Required]
         [Range(0, 100)]
         public int AvailableSeats { get; set; }
+
+        public List<Booking> Bookings { get; set; } = new List<Booking>();
+
     }
 }
