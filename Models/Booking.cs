@@ -10,7 +10,7 @@ namespace TravelPlannerMVC.Models
         public int UserId { get; set; }
 
         [Required]
-        public int RouteId { get; set; }
+        public int TravelRouteId { get; set; }
 
         [Required]
         [Range(1, 100)]
@@ -19,8 +19,9 @@ namespace TravelPlannerMVC.Models
         [Required]
         public string Status { get; set; } = "Pending";
 
-        public User User { get; set; }
+        public User? User { get; set; }
 
-        public Route Route { get; set; }
+        public TravelRoute? TravelRoute { get; set; }
+
     }
 }
