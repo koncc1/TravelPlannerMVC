@@ -13,7 +13,6 @@
     <Folder Include="Areas\" />
     <Folder Include="Extensions\" />
     <Folder Include="Services\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
