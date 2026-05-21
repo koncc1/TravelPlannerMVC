@@ -10,10 +10,10 @@ namespace TravelPlannerMVC.Models
         public int UserId { get; set; }
 
         [Required]
-        public string StartCity { get; set; }
+        public string StartCity { get; set; } = string.Empty;
 
         [Required]
-        public string EndCity { get; set; }
+        public string EndCity { get; set; } = string.Empty;
 
         [Required]
         public DateTime PreferredDate { get; set; }
