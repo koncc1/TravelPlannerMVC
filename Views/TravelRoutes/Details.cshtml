@@ -1,0 +1,38 @@
+﻿@model TravelPlannerMVC.Models.TravelRoute
+
+@{
+    ViewData["Title"] = "Route Details";
+}
+
+<h2 class="mb-4">Route Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">
+            @Model.StartCity → @Model.EndCity
+        </h5>
+
+        <p>
+            <strong>Departure:</strong>
+            @Model.DepartureDate.ToString("dd.MM.yyyy HH:mm")
+        </p>
+
+        <p>
+            <strong>Price:</strong>
+            @Model.Price Kč
+        </p>
+
+        <p>
+            <strong>Available seats:</strong>
+            @Model.AvailableSeats
+        </p>
+
+        <a asp-controller="TravelRoutes" asp-action="Index" class="btn btn-secondary">
+            Back
+        </a>
+
+        <a asp-controller="TravelRoutes" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+            Edit
+        </a>
+    </div>
+</div>
