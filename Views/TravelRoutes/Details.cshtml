@@ -34,5 +34,9 @@
         <a asp-controller="TravelRoutes" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
             Edit
         </a>
+
+        <a asp-controller="Bookings" asp-action="Create" asp-route-routeId="@Model.Id" class="btn btn-success">
+            Book this route
+        </a>
     </div>
 </div>
