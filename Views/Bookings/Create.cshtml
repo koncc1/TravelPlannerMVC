@@ -1,0 +1,56 @@
+﻿@model TravelPlannerMVC.ViewModels.BookingCreateViewModel
+
+@{
+    ViewData["Title"] = "Book Route";
+    var route = ViewBag.Route as TravelPlannerMVC.Models.TravelRoute;
+}
+
+<h2 class="mb-4">Book Route</h2>
+
+@if (route != null)
+{
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>@route.StartCity → @route.EndCity</h5>
+
+            <p>
+                <strong>Departure:</strong>
+                @route.DepartureDate.ToString("dd.MM.yyyy HH:mm")
+            </p>
+
+            <p>
+                <strong>Price:</strong>
+                @route.Price Kč
+            </p>
+
+            <p>
+                <strong>Available seats:</strong>
+                @route.AvailableSeats
+            </p>
+        </div>
+    </div>
+}
+
+<form asp-controller="Bookings" asp-action="Create" method="post">
+    <input type="hidden" asp-for="TravelRouteId" />
+
+    <div class="mb-3">
+        <label asp-for="SeatsCount" class="form-label"></label>
+        <input asp-for="SeatsCount" class="form-control" />
+        <span asp-validation-for="SeatsCount" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-dark">
+        Book
+    </button>
+
+    <a asp-controller="TravelRoutes" asp-action="Index" class="btn btn-secondary">
+        Back
+    </a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
