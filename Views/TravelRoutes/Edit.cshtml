@@ -1,0 +1,56 @@
+﻿@model TravelPlannerMVC.Models.TravelRoute
+
+@{
+    ViewData["Title"] = "Edit Route";
+}
+
+<h2 class="mb-4">Edit Route</h2>
+
+<form asp-controller="TravelRoutes" asp-action="Edit" method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="StartCity" class="form-label"></label>
+        <input asp-for="StartCity" class="form-control" />
+        <span asp-validation-for="StartCity" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EndCity" class="form-label"></label>
+        <input asp-for="EndCity" class="form-control" />
+        <span asp-validation-for="EndCity" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DepartureDate" class="form-label"></label>
+        <input asp-for="DepartureDate" type="datetime-local" class="form-control" />
+        <span asp-validation-for="DepartureDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AvailableSeats" class="form-label"></label>
+        <input asp-for="AvailableSeats" class="form-control" />
+        <span asp-validation-for="AvailableSeats" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-dark">
+        Save
+    </button>
+
+    <a asp-controller="TravelRoutes" asp-action="Index" class="btn btn-secondary">
+        Back
+    </a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

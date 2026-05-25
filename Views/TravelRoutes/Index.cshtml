@@ -1,0 +1,59 @@
+﻿@model List<TravelPlannerMVC.Models.TravelRoute>
+
+@{
+    ViewData["Title"] = "Routes";
+}
+
+<h2 class="mb-4">Travel Routes</h2>
+
+<a asp-controller="TravelRoutes" asp-action="Create" class="btn btn-dark mb-3">
+    Create Route
+</a>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-info">
+        No routes yet.
+    </div>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Start City</th>
+                <th>End City</th>
+                <th>Departure Date</th>
+                <th>Price</th>
+                <th>Seats</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var route in Model)
+            {
+                <tr>
+                    <td>@route.StartCity</td>
+                    <td>@route.EndCity</td>
+                    <td>@route.DepartureDate.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@route.Price Kč</td>
+                    <td>@route.AvailableSeats</td>
+                    <td>
+                        <a asp-controller="TravelRoutes" asp-action="Details" asp-route-id="@route.Id" class="btn btn-sm btn-primary">
+                            Details
+                        </a>
+
+                        <a asp-controller="TravelRoutes" asp-action="Edit" asp-route-id="@route.Id" class="btn btn-sm btn-warning">
+                            Edit
+                        </a>
+
+                        <a asp-controller="TravelRoutes" asp-action="Delete" asp-route-id="@route.Id" class="btn btn-sm btn-danger">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
