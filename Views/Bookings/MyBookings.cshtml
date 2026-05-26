@@ -21,6 +21,7 @@ else
                 <th>Departure</th>
                 <th>Seats</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
 
@@ -42,6 +43,21 @@ else
 
                     <td>
                         @booking.Status
+                    </td>
+
+                    <td>
+                        @if (booking.Status != "Cancelled")
+                        {
+                            <form asp-controller="Bookings" asp-action="Cancel" asp-route-id="@booking.Id" method="post">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    Cancel
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Cancelled</span>
+                        }
                     </td>
                 </tr>
             }
