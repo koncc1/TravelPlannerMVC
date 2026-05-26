@@ -17,6 +17,8 @@ namespace TravelPlannerMVC.Controllers
             _context = context;
         }
 
+
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Index()
         {
             var requests = _context.TravelRequests.ToList();
@@ -80,6 +82,8 @@ namespace TravelPlannerMVC.Controllers
             return View(requests);
         }
 
+
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public IActionResult ChangeStatus(int id, string status)
         {
