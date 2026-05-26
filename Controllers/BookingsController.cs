@@ -106,5 +106,46 @@ namespace TravelPlannerMVC.Controllers
 
             return View(bookings);
         }
+        [HttpPost]
+        public IActionResult Cancel(int id)
+        {
+            string? userIdText = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userIdText == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            int userId = int.Parse(userIdText);
+
+            var booking = _context.Bookings.Find(id);
+
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            if (booking.UserId != userId)
+            {
+                return Forbid();
+            }
+
+            if (booking.Status != "Cancelled")
+            {
+                var route = _context.TravelRoutes.Find(booking.TravelRouteId);
+
+                if (route != null)
+                {
+                    route.AvailableSeats = route.AvailableSeats + booking.SeatsCount;
+                }
+
+                booking.Status = "Cancelled";
+
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("MyBookings");
+        }
     }
+
 }
