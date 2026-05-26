@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TravelPlannerMVC.Data;
 using TravelPlannerMVC.Models;
 
@@ -32,12 +33,14 @@ namespace TravelPlannerMVC.Controllers
             return View(route);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public IActionResult Create(TravelRoute route)
         {
@@ -52,6 +55,7 @@ namespace TravelPlannerMVC.Controllers
             return View(route);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -65,6 +69,7 @@ namespace TravelPlannerMVC.Controllers
             return View(route);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public IActionResult Edit(TravelRoute route)
         {
@@ -79,6 +84,7 @@ namespace TravelPlannerMVC.Controllers
             return View(route);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -92,6 +98,7 @@ namespace TravelPlannerMVC.Controllers
             return View(route);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public IActionResult DeleteConfirmed(int id)
         {
