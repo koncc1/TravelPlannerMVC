@@ -17,6 +17,13 @@ namespace TravelPlannerMVC.Controllers
             _context = context;
         }
 
+        public IActionResult Index()
+        {
+            var requests = _context.TravelRequests.ToList();
+
+            return View(requests);
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -26,33 +33,33 @@ namespace TravelPlannerMVC.Controllers
         [HttpPost]
         public IActionResult Create(TravelRequestCreateViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
+                string? userIdText = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (userIdText == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                int userId = int.Parse(userIdText);
+
+                TravelRequest request = new TravelRequest
+                {
+                    UserId = userId,
+                    StartCity = model.StartCity,
+                    EndCity = model.EndCity,
+                    PreferredDate = model.PreferredDate,
+                    Status = "Pending"
+                };
+
+                _context.TravelRequests.Add(request);
+                _context.SaveChanges();
+
+                return RedirectToAction("MyRequests");
             }
 
-            string? userIdText = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (userIdText == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-
-            int userId = int.Parse(userIdText);
-
-            TravelRequest request = new TravelRequest
-            {
-                UserId = userId,
-                StartCity = model.StartCity,
-                EndCity = model.EndCity,
-                PreferredDate = model.PreferredDate,
-                Status = "Pending"
-            };
-
-            _context.TravelRequests.Add(request);
-            _context.SaveChanges();
-
-            return RedirectToAction("MyRequests");
+            return View(model);
         }
 
         public IActionResult MyRequests()
@@ -71,6 +78,23 @@ namespace TravelPlannerMVC.Controllers
                 .ToList();
 
             return View(requests);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeStatus(int id, string status)
+        {
+            var request = _context.TravelRequests.Find(id);
+
+            if (request == null)
+            {
+                return NotFound();
+            }
+
+            request.Status = status;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }
