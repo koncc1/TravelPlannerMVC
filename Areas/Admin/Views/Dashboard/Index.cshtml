@@ -1,0 +1,39 @@
+﻿@model TravelPlannerMVC.Areas.Admin.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<div class="row">
+
+    <div class="col-md-3 mb-3">
+        <div class="card p-3">
+            <h5>Users</h5>
+            <h2>@Model.UsersCount</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card p-3">
+            <h5>Routes</h5>
+            <h2>@Model.RoutesCount</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card p-3">
+            <h5>Bookings</h5>
+            <h2>@Model.BookingsCount</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card p-3">
+            <h5>Requests</h5>
+            <h2>@Model.RequestsCount</h2>
+        </div>
+    </div>
+
+</div>
