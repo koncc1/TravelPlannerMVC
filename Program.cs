@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TravelPlannerMVC.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using TravelPlannerMVC.Extensions;
 
 
 
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // MVC
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAppServices();
 // Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
