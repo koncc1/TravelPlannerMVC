@@ -7,9 +7,14 @@ using TravelPlannerMVC.ViewModels;
 
 namespace TravelPlannerMVC.Controllers
 {
+    /// <summary>
+    /// Controller for managing travel requests (create, view, admin status changes)
+    /// </summary>
     [Authorize]
     public class TravelRequestsController : Controller
     {
+        #region Fields & Constructor
+
         private readonly ApplicationDbContext _context;
 
         public TravelRequestsController(ApplicationDbContext context)
@@ -17,21 +22,40 @@ namespace TravelPlannerMVC.Controllers
             _context = context;
         }
 
+        #endregion
 
+        #region Admin - Requests List
+
+        /// <summary>
+        /// Displays all travel requests (Admin/Manager only)
+        /// </summary>
         [Authorize(Roles = "Admin,Manager")]
         public IActionResult Index()
         {
             var requests = _context.TravelRequests.ToList();
-
             return View(requests);
         }
 
+        #endregion
+
+        #region Create Request - GET
+
+        /// <summary>
+        /// Shows form for creating a new travel request
+        /// </summary>
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        #endregion
+
+        #region Create Request - POST
+
+        /// <summary>
+        /// Handles creation of travel request
+        /// </summary>
         [HttpPost]
         public IActionResult Create(TravelRequestCreateViewModel model)
         {
@@ -64,6 +88,13 @@ namespace TravelPlannerMVC.Controllers
             return View(model);
         }
 
+        #endregion
+
+        #region User Requests
+
+        /// <summary>
+        /// Shows requests of currently logged-in user
+        /// </summary>
         public IActionResult MyRequests()
         {
             string? userIdText = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -82,7 +113,13 @@ namespace TravelPlannerMVC.Controllers
             return View(requests);
         }
 
+        #endregion
 
+        #region Admin - Change Status
+
+        /// <summary>
+        /// Changes status of a travel request (Admin/Manager only)
+        /// </summary>
         [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public IActionResult ChangeStatus(int id, string status)
@@ -95,10 +132,11 @@ namespace TravelPlannerMVC.Controllers
             }
 
             request.Status = status;
-
             _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
+
+        #endregion
     }
 }
