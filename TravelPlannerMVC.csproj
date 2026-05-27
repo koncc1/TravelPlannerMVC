@@ -12,7 +12,6 @@
     <Folder Include="Middlewares\" />
     <Folder Include="Areas\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
