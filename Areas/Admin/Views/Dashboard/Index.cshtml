@@ -7,93 +7,113 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
-    /* Сучасні стилі для карток */
-    .dashboard-card {
-        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        border: none;
+    .admin-dashboard {
+        padding: 20px;
+    }
+
+    .admin-header {
+        background: #fff;
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #e9ecef;
+    }
+
+    .admin-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .admin-subtitle {
+        font-size: 13px;
+        color: #6c757d;
+        margin-top: 2px;
+    }
+
+    .stat-card {
+        background: #fff;
+        border: 1px solid #e9ecef;
         border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        transition: 0.2s ease;
     }
-    /* Ефект при наведенні - картка плавно піднімається та з'являється м'яка тінь */
-    .dashboard-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+
+    .stat-card:hover {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
-    .text-xs {
-        font-size: 0.75rem;
-        letter-spacing: 0.05em;
+
+    .stat-value {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0;
+        color: #212529;
     }
-    .icon-shape {
-        width: 52px;
-        height: 52px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+
+    .stat-label {
+        font-size: 12px;
+        color: #6c757d;
+        text-transform: uppercase;
+        margin-bottom: 5px;
     }
+
+    .icon {
+        font-size: 28px;
+        opacity: 0.3;
+        float: right;
+    }
+
+    .blue { color: #0d6efd; }
+    .green { color: #198754; }
+    .orange { color: #fd7e14; }
+    .purple { color: #6f42c1; }
 </style>
 
-<div class="container-fluid py-4">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h2 class="mb-0 text-gray-800 fw-bold">Панель адміністратора</h2>
-        <span class="badge bg-dark px-3 py-2 rounded-pill">Аналітика платформи</span>
+<div class="admin-dashboard">
+
+    <!-- HEADER -->
+    <div class="admin-header">
+        <h2 class="admin-title">Admin Dashboard</h2>
+        <div class="admin-subtitle">Basic platform statistics</div>
     </div>
 
+    <!-- ROWS (Bootstrap only) -->
     <div class="row">
 
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card dashboard-card border-start border-primary border-4 shadow-sm h-100">
-                <div class="card-body d-flex align-items-center justify-content-between p-4">
-                    <div>
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 fw-bold">Користувачі</div>
-                        <div class="h2 mb-0 fw-bold text-dark">@Model.UsersCount</div>
-                    </div>
-                    <div class="icon-shape bg-primary bg-opacity-10 text-primary rounded-circle">
-                        <i class="bi bi-people-fill fs-4"></i>
-                    </div>
-                </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="bi bi-people-fill icon blue"></i>
+                <div class="stat-label">Users</div>
+                <div class="stat-value">@Model.UsersCount</div>
             </div>
         </div>
 
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card dashboard-card border-start border-success border-4 shadow-sm h-100">
-                <div class="card-body d-flex align-items-center justify-content-between p-4">
-                    <div>
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1 fw-bold">Маршрути</div>
-                        <div class="h2 mb-0 fw-bold text-dark">@Model.RoutesCount</div>
-                    </div>
-                    <div class="icon-shape bg-success bg-opacity-10 text-success rounded-circle">
-                        <i class="bi bi-compass-fill fs-4"></i>
-                    </div>
-                </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="bi bi-compass-fill icon green"></i>
+                <div class="stat-label">Routes</div>
+                <div class="stat-value">@Model.RoutesCount</div>
             </div>
         </div>
 
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card dashboard-card border-start border-info border-4 shadow-sm h-100">
-                <div class="card-body d-flex align-items-center justify-content-between p-4">
-                    <div>
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1 fw-bold">Бронювання</div>
-                        <div class="h2 mb-0 fw-bold text-dark">@Model.BookingsCount</div>
-                    </div>
-                    <div class="icon-shape bg-info bg-opacity-10 text-info rounded-circle">
-                        <i class="bi bi-calendar-check-fill fs-4"></i>
-                    </div>
-                </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="bi bi-calendar-check-fill icon purple"></i>
+                <div class="stat-label">Bookings</div>
+                <div class="stat-value">@Model.BookingsCount</div>
             </div>
         </div>
 
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card dashboard-card border-start border-warning border-4 shadow-sm h-100">
-                <div class="card-body d-flex align-items-center justify-content-between p-4">
-                    <div>
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 fw-bold">Запити</div>
-                        <div class="h2 mb-0 fw-bold text-dark">@Model.RequestsCount</div>
-                    </div>
-                    <div class="icon-shape bg-warning bg-opacity-10 text-warning rounded-circle">
-                        <i class="bi bi-clipboard-text-fill fs-4"></i>
-                    </div>
-                </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="bi bi-clipboard-data-fill icon orange"></i>
+                <div class="stat-label">Requests</div>
+                <div class="stat-value">@Model.RequestsCount</div>
             </div>
         </div>
 
     </div>
+
 </div>
