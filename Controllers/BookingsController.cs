@@ -5,6 +5,8 @@ using System.Security.Claims;
 using TravelPlannerMVC.Data;
 using TravelPlannerMVC.Models;
 using TravelPlannerMVC.ViewModels;
+using TravelPlannerMVC.DTO;
+
 
 namespace TravelPlannerMVC.Controllers
 {
@@ -71,15 +73,22 @@ namespace TravelPlannerMVC.Controllers
 
             int userId = int.Parse(userIdText);
 
-            Booking booking = new Booking
+            var dto = new BookingCreateDto
             {
                 UserId = userId,
                 TravelRouteId = model.TravelRouteId,
-                SeatsCount = model.SeatsCount,
+                SeatsCount = model.SeatsCount
+            };
+
+            Booking booking = new Booking
+            {
+                UserId = dto.UserId,
+                TravelRouteId = dto.TravelRouteId,
+                SeatsCount = dto.SeatsCount,
                 Status = "Confirmed"
             };
 
-            route.AvailableSeats = route.AvailableSeats - model.SeatsCount;
+            route.AvailableSeats = route.AvailableSeats - dto.SeatsCount;
 
             _context.Bookings.Add(booking);
             _context.TravelRoutes.Update(route);
