@@ -5,8 +5,13 @@ using TravelPlannerMVC.Models;
 
 namespace TravelPlannerMVC.Controllers
 {
+    /// <summary>
+    /// Controller for managing travel routes (CRUD operations + details view)
+    /// </summary>
     public class TravelRoutesController : Controller
     {
+        #region Fields & Constructor
+
         private readonly ApplicationDbContext _context;
 
         public TravelRoutesController(ApplicationDbContext context)
@@ -14,13 +19,26 @@ namespace TravelPlannerMVC.Controllers
             _context = context;
         }
 
+        #endregion
+
+        #region Routes - List
+
+        /// <summary>
+        /// Displays all available travel routes
+        /// </summary>
         public IActionResult Index()
         {
             var routes = _context.TravelRoutes.ToList();
-
             return View(routes);
         }
 
+        #endregion
+
+        #region Route - Details
+
+        /// <summary>
+        /// Displays details of a specific travel route
+        /// </summary>
         public IActionResult Details(int id)
         {
             var route = _context.TravelRoutes.Find(id);
@@ -33,6 +51,13 @@ namespace TravelPlannerMVC.Controllers
             return View(route);
         }
 
+        #endregion
+
+        #region Create Route
+
+        /// <summary>
+        /// Shows form for creating a new travel route (Admin/Manager only)
+        /// </summary>
         [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         public IActionResult Create()
@@ -40,6 +65,9 @@ namespace TravelPlannerMVC.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Handles creation of a new travel route
+        /// </summary>
         [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public IActionResult Create(TravelRoute route)
@@ -55,6 +83,13 @@ namespace TravelPlannerMVC.Controllers
             return View(route);
         }
 
+        #endregion
+
+        #region Edit Route
+
+        /// <summary>
+        /// Shows edit form for existing travel route (Admin/Manager only)
+        /// </summary>
         [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         public IActionResult Edit(int id)
@@ -69,6 +104,9 @@ namespace TravelPlannerMVC.Controllers
             return View(route);
         }
 
+        /// <summary>
+        /// Handles update of existing travel route
+        /// </summary>
         [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public IActionResult Edit(TravelRoute route)
@@ -84,6 +122,13 @@ namespace TravelPlannerMVC.Controllers
             return View(route);
         }
 
+        #endregion
+
+        #region Delete Route
+
+        /// <summary>
+        /// Shows confirmation page for deleting a route (Admin/Manager only)
+        /// </summary>
         [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         public IActionResult Delete(int id)
@@ -98,6 +143,9 @@ namespace TravelPlannerMVC.Controllers
             return View(route);
         }
 
+        /// <summary>
+        /// Confirms deletion of a travel route
+        /// </summary>
         [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public IActionResult DeleteConfirmed(int id)
@@ -114,5 +162,7 @@ namespace TravelPlannerMVC.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
     }
 }
