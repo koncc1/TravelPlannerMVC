@@ -31,12 +31,25 @@
             Back
         </a>
 
-        <a asp-controller="TravelRoutes" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
-            Edit
-        </a>
+        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+        {
+            <a asp-controller="TravelRoutes" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                Edit
+            </a>
+        }
 
-        <a asp-controller="Bookings" asp-action="Create" asp-route-routeId="@Model.Id" class="btn btn-success">
-            Book this route
-        </a>
+
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            <a asp-controller="Bookings" asp-action="Create" asp-route-routeId="@Model.Id" class="btn btn-success">
+                Book this route
+            </a>
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Login" class="btn btn-success">
+                Login to book
+            </a>
+        }
     </div>
 </div>
